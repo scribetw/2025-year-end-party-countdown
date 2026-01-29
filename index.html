@@ -1,0 +1,76 @@
+<!DOCTYPE html>
+<html lang="zh-TW">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>COUNTDOWN</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+    <div class="container">
+        <!-- 開始按鈕 -->
+        <div id="startScreen" class="screen active">
+            <button id="startButton" class="start-button">START</button>
+        </div>
+
+        <!-- 倒數計時畫面 -->
+        <div id="timerScreen" class="screen">
+            <button id="cancelButton" class="cancel-button">✕</button>
+            <div class="timer-container">
+                <svg class="progress-ring" width="80vh" height="80vh" viewBox="0 0 400 400">
+                    <circle class="progress-ring-circle-bg" 
+                            cx="200" 
+                            cy="200" 
+                            r="155" />
+                    <circle class="progress-ring-circle" 
+                            cx="200" 
+                            cy="200" 
+                            r="155" />
+                </svg>
+                <div class="countdown-text" id="countdownText">15</div>
+            </div>
+        </div>
+
+        <!-- 結束畫面 -->
+        <div id="endScreen" class="screen">
+            <div class="end-text">STOP</div>
+        </div>
+    </div>
+
+    <!-- 計分面板觸發按鈕 -->
+    <button id="scorePanelToggle" class="score-panel-toggle">計分板</button>
+
+    <!-- 計分面板 -->
+    <div id="scorePanel" class="score-panel">
+        <div class="score-panel-header">
+            <h2>計分板</h2>
+            <button id="closePanelButton" class="close-panel-button">✕</button>
+        </div>
+        <div class="score-panel-content">
+            <!-- 第一桌 -->
+            <div class="score-item">
+                <div class="table-name">第一桌</div>
+                <button class="score-button" data-table="1" data-action="increase">+</button>
+                <div class="score-display" id="score-1">0</div>
+                <button class="score-button" data-table="1" data-action="decrease">−</button>
+            </div>
+            <!-- 第二桌 -->
+            <div class="score-item">
+                <div class="table-name">第二桌</div>
+                <button class="score-button" data-table="2" data-action="increase">+</button>
+                <div class="score-display" id="score-2">0</div>
+                <button class="score-button" data-table="2" data-action="decrease">−</button>
+            </div>
+            <!-- 第三桌 -->
+            <div class="score-item">
+                <div class="table-name">第三桌</div>
+                <button class="score-button" data-table="3" data-action="increase">+</button>
+                <div class="score-display" id="score-3">0</div>
+                <button class="score-button" data-table="3" data-action="decrease">−</button>
+            </div>
+        </div>
+    </div>
+
+    <script src="script.js"></script>
+</body>
+</html>

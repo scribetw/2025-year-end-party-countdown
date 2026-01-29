@@ -1,0 +1,351 @@
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+body {
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    min-height: 100vh;
+    background: #ffffff;
+}
+
+.container {
+    position: relative;
+    width: 100%;
+    height: 100vh;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.screen {
+    position: absolute;
+    width: 100%;
+    height: 100%;
+    display: none;
+    justify-content: center;
+    align-items: center;
+    transition: opacity 0.3s ease;
+}
+
+.screen.active {
+    display: flex;
+}
+
+/* 開始按鈕樣式 */
+.start-button {
+    width: 250px;
+    height: 250px;
+    border-radius: 50%;
+    border: 8px solid #333333;
+    background: #ffffff;
+    color: #333333;
+    font-size: 36px;
+    font-weight: bold;
+    cursor: pointer;
+    box-shadow: 0 10px 40px rgba(0, 0, 0, 0.15);
+    transition: all 0.3s ease;
+}
+
+.start-button:hover {
+    transform: scale(1.05);
+    box-shadow: 0 15px 50px rgba(0, 0, 0, 0.2);
+    background: #f5f5f5;
+}
+
+.start-button:active {
+    transform: scale(0.95);
+}
+
+/* 計時器容器 */
+.timer-container {
+    position: relative;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+/* 取消按鈕 */
+.cancel-button {
+    position: absolute;
+    top: 4vh;
+    right: 4vh;
+    width: 50px;
+    height: 50px;
+    border-radius: 50%;
+    border: 2px solid rgba(0, 0, 0, 0.2);
+    background: rgba(255, 255, 255, 0.9);
+    color: rgba(0, 0, 0, 0.4);
+    font-size: 24px;
+    font-weight: normal;
+    cursor: pointer;
+    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+    transition: all 0.3s ease;
+    z-index: 100;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    line-height: 1;
+}
+
+.cancel-button:hover {
+    background: rgba(255, 255, 255, 1);
+    color: rgba(0, 0, 0, 0.7);
+    border-color: rgba(0, 0, 0, 0.4);
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
+}
+
+.cancel-button:active {
+    transform: scale(0.9);
+}
+
+/* SVG 圓形進度條 */
+.progress-ring {
+    transform: rotate(-90deg);
+}
+
+.progress-ring-circle-bg {
+    stroke: rgba(0, 0, 0, 0.1);
+    stroke-width: 12;
+    fill: none;
+}
+
+.progress-ring-circle {
+    stroke: #333333;
+    stroke-width: 12;
+    fill: none;
+    stroke-dasharray: 754;
+    stroke-dashoffset: 754;
+    transition: stroke-dashoffset 0.1s linear;
+    stroke-linecap: round;
+}
+
+/* 倒數數字 */
+.countdown-text {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    font-size: 20vh;
+    font-weight: bold;
+    color: #333333;
+    text-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+}
+
+/* 最後5秒的緊張效果 */
+.timer-container.urgent .countdown-text {
+    animation: pulse 0.5s ease-in-out infinite;
+    color: #ff4757;
+    text-shadow: 0 0 20px rgba(255, 71, 87, 0.8);
+}
+
+.timer-container.urgent .progress-ring-circle {
+    stroke: #ff4757;
+    animation: glow 0.5s ease-in-out infinite;
+}
+
+.timer-container.urgent .progress-ring-circle-bg {
+    stroke: rgba(255, 71, 87, 0.3);
+}
+
+@keyframes pulse {
+    0%, 100% {
+        transform: translate(-50%, -50%) scale(1);
+    }
+    50% {
+        transform: translate(-50%, -50%) scale(1.1);
+    }
+}
+
+@keyframes glow {
+    0%, 100% {
+        filter: drop-shadow(0 0 5px rgba(255, 71, 87, 0.5));
+    }
+    50% {
+        filter: drop-shadow(0 0 20px rgba(255, 71, 87, 1));
+    }
+}
+
+/* 結束畫面 */
+.end-text {
+    font-size: 30vh;
+    font-weight: bold;
+    color: #333333;
+    text-shadow: 0 5px 15px rgba(0, 0, 0, 0.15);
+    animation: endAppear 0.5s ease-out;
+}
+
+@keyframes endAppear {
+    0% {
+        transform: scale(0);
+        opacity: 0;
+    }
+    50% {
+        transform: scale(1.2);
+    }
+    100% {
+        transform: scale(1);
+        opacity: 1;
+    }
+}
+
+/* 計分面板觸發按鈕 */
+.score-panel-toggle {
+    position: fixed;
+    bottom: 20px;
+    right: 20px;
+    padding: 12px 24px;
+    border: 2px solid rgba(0, 0, 0, 0.2);
+    border-radius: 25px;
+    background: rgba(255, 255, 255, 0.95);
+    color: #333333;
+    font-size: 16px;
+    font-weight: 600;
+    cursor: pointer;
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
+    transition: all 0.3s ease;
+    z-index: 999;
+}
+
+.score-panel-toggle:hover {
+    background: rgba(255, 255, 255, 1);
+    box-shadow: 0 6px 16px rgba(0, 0, 0, 0.2);
+    transform: translateY(-2px);
+}
+
+.score-panel-toggle:active {
+    transform: translateY(0);
+}
+
+/* 計分面板 */
+.score-panel {
+    position: fixed;
+    bottom: 0;
+    left: 0;
+    right: 0;
+    background: #ffffff;
+    border-top: 2px solid #e0e0e0;
+    box-shadow: 0 -4px 20px rgba(0, 0, 0, 0.15);
+    transform: translateY(100%);
+    transition: transform 0.4s ease;
+    z-index: 1000;
+    max-height: 60vh;
+    overflow-y: auto;
+}
+
+.score-panel.open {
+    transform: translateY(0);
+}
+
+.score-panel-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 20px 30px;
+    border-bottom: 1px solid #e0e0e0;
+    background: #f9f9f9;
+}
+
+.score-panel-header h2 {
+    margin: 0;
+    font-size: 24px;
+    color: #333333;
+    font-weight: 600;
+}
+
+.close-panel-button {
+    width: 36px;
+    height: 36px;
+    border-radius: 50%;
+    border: 2px solid rgba(0, 0, 0, 0.2);
+    background: transparent;
+    color: #333333;
+    font-size: 20px;
+    cursor: pointer;
+    transition: all 0.3s ease;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.close-panel-button:hover {
+    background: rgba(0, 0, 0, 0.05);
+    border-color: rgba(0, 0, 0, 0.4);
+}
+
+.score-panel-content {
+    padding: 30px;
+    display: flex;
+    flex-direction: row;
+    justify-content: center;
+    gap: 40px;
+}
+
+.score-item {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 15px;
+    padding: 25px 35px;
+    background: #f9f9f9;
+    border-radius: 12px;
+    border: 2px solid #e0e0e0;
+    transition: all 0.3s ease;
+    min-width: 150px;
+}
+
+.score-item:hover {
+    border-color: #d0d0d0;
+    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.08);
+}
+
+.table-name {
+    font-size: 20px;
+    font-weight: 600;
+    color: #333333;
+    margin-bottom: 5px;
+}
+
+.score-controls {
+    display: flex;
+    align-items: center;
+    gap: 20px;
+}
+
+.score-button {
+    width: 48px;
+    height: 48px;
+    border-radius: 50%;
+    border: 2px solid #333333;
+    background: #ffffff;
+    color: #333333;
+    font-size: 24px;
+    font-weight: bold;
+    cursor: pointer;
+    transition: all 0.3s ease;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    line-height: 1;
+}
+
+.score-button:hover {
+    background: #f5f5f5;
+    transform: scale(1.1);
+}
+
+.score-button:active {
+    transform: scale(0.95);
+}
+
+.score-display {
+    min-width: 60px;
+    text-align: center;
+    font-size: 32px;
+    font-weight: bold;
+    color: #333333;
+}
