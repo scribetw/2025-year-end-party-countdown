@@ -50,23 +50,36 @@
             <!-- 第一桌 -->
             <div class="score-item">
                 <div class="table-name">第一桌</div>
-                <button class="score-button" data-table="1" data-action="increase">+</button>
                 <div class="score-display" id="score-1">0</div>
-                <button class="score-button" data-table="1" data-action="decrease">−</button>
+                <button class="set-button" data-table="1">Set</button>
             </div>
             <!-- 第二桌 -->
             <div class="score-item">
                 <div class="table-name">第二桌</div>
-                <button class="score-button" data-table="2" data-action="increase">+</button>
                 <div class="score-display" id="score-2">0</div>
-                <button class="score-button" data-table="2" data-action="decrease">−</button>
+                <button class="set-button" data-table="2">Set</button>
             </div>
             <!-- 第三桌 -->
             <div class="score-item">
                 <div class="table-name">第三桌</div>
-                <button class="score-button" data-table="3" data-action="increase">+</button>
                 <div class="score-display" id="score-3">0</div>
-                <button class="score-button" data-table="3" data-action="decrease">−</button>
+                <button class="set-button" data-table="3">Set</button>
+            </div>
+        </div>
+    </div>
+
+    <!-- Modal for setting score -->
+    <div class="score-modal" id="scoreModal">
+        <div class="modal-content">
+            <button class="modal-close" onclick="closeModal()">&times;</button>
+            <h2 class="modal-title" id="modalTableName">第一桌</h2>
+            <p class="modal-question">幾個重複?</p>
+            <div class="number-buttons">
+                <button class="number-button" data-value="0" onclick="setScore(0)">0</button>
+                <button class="number-button" data-value="1" onclick="setScore(1)">1</button>
+                <button class="number-button" data-value="2" onclick="setScore(2)">2</button>
+                <button class="number-button" data-value="3" onclick="setScore(3)">3</button>
+                <button class="number-button" data-value="4" onclick="setScore(4)">4</button>
             </div>
         </div>
     </div>
